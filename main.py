@@ -5,6 +5,7 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+import random
 
 def main():
     print("Starting Asteroids!")
@@ -33,13 +34,21 @@ def main():
     while True:
 
         screen.fill("black")
-        print(player.timer)
 
         updatable.update(dt)
         for rock in rocks:
             if player.collisions(rock):
                 print("Game over!")
                 return
+            for shot in shots:
+                if shot.collisions(rock):
+                    shot.kill()
+                    rock.kill()
+                    angle=random.uniform(20,50)
+                    asteroid1 = Asteroid(rock.position[0], rock.position[1], rock.radius-ASTEROID_MIN_RADIUS)
+                    asteroid2 = Asteroid(rock.position[0], rock.position[1], rock.radius-ASTEROID_MIN_RADIUS)
+                    asteroid1.velocity = rock.velocity.rotate(angle)*1.2
+                    asteroid2.velocity = rock.velocity.rotate(-angle)*1.2
 
         for draws in drawable:
             draws.draw(screen)
