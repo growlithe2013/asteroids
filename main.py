@@ -9,6 +9,14 @@ import random
 
 def main():
     print("Starting Asteroids!")
+
+    try:
+        SCREEN_HEIGHT=int(input("Enter desired window height in px: "))
+        SCREEN_WIDTH=int(input("Enter desired window width in px: "))
+
+    except Exception:
+        print("Height/Width must be numerical")
+
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     pygame.init()
